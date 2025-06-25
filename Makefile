@@ -78,7 +78,7 @@ export SUBPACKAGES := $(SUBPACKAGES)
 # Setup Kubernetes tools
 
 KIND_VERSION = v0.29.0
-UP_VERSION = v0.39.0
+CROSSPLANE_CLI_VERSION = v2.0.0
 UP_CHANNEL = stable
 UPTEST_VERSION = v0.11.1
 UPTEST_LOCAL_VERSION = v0.13.0
@@ -88,6 +88,7 @@ YQ_VERSION = v4.40.5
 CROSSPLANE_VERSION = 1.14.6
 CRDDIFF_VERSION = v0.12.1
 
+export CROSSPLANE_CLI_VERSION := $(CROSSPLANE_CLI_VERSION)
 export UP_VERSION := $(UP_VERSION)
 export UP_CHANNEL := $(UP_CHANNEL)
 
@@ -172,9 +173,9 @@ run: go.build
 	@# To see other arguments that can be provided, run the command with --help instead
 	UPBOUND_CONTEXT="local" $(GO_OUT_DIR)/monolith --debug --certs-dir=""
 
-# NOTE(hasheddan): we ensure up is installed prior to running platform-specific
+# NOTE(hasheddan): we ensure crossplane CLI is installed prior to running platform-specific
 # build steps in parallel to avoid encountering an installation race condition.
-build.init: $(UP)
+build.init: $(CROSSPLANE_CLI)
 
 # ====================================================================================
 # Setup Terraform for fetching provider schema
